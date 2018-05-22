@@ -3,7 +3,6 @@ import codecs
 import configparser
 
 proDir = os.path.split(os.path.realpath(__file__))[0]
-print(proDir)
 configPath = os.path.join(proDir, "config.ini")
 
 
@@ -30,7 +29,16 @@ class ReadConfig:
     def get_xls(self,name):
         value = self.cf.get("TESTCASE",name)
         return value
+
+    def get_member(self,name):
+        value = self.cf.get("MEMBER",name)
+        return value
         
+    def set_member(self,name,value):
+        self.cf.set("TESTCASE",name,value)
+
+    def write(self):
+        self.cf.write(open(configPath, "w"))     
 
 # if __name__ == "__main__":
 #     a = ReadConfig()
