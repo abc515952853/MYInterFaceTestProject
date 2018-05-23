@@ -1,4 +1,6 @@
 import xlrd
+import xlwt
+from xlutils.copy import copy
 import os
 import ReadConfig 
 
@@ -8,24 +10,12 @@ class Xlrd:
         proDir = ReadConfig.proDir
         readconfig=ReadConfig.ReadConfig()
         xls_name = readconfig.get_xls('xls_name')
-        xlsPath = os.path.join(proDir,'testfile',xls_name)
-        self.file = xlrd.open_workbook(xlsPath)
-
-    #获取sheet列名
-    def get_sheet_colname(self,sheet_name):
-        sheet = self.file.sheet_by_name(sheet_name)
-        row = sheet.row_values(0)
-        colNum = sheet.ncols 
-
-        cls = {}
-        for i in range(colNum):
-            cls[sheet.row_values(0)[i]]=i
-        return cls
-    
+        self.xlsPath = os.path.join(proDir,'testfile',xls_name)
+        self.openfile = xlrd.open_workbook(self.xlsPath,'w')
 
     #遍历sheet中的用例
     def get_xls_next(self,sheet_name):
-        sheet = self.file.sheet_by_name(sheet_name)
+        sheet = self.openfile.sheet_by_name(sheet_name)
         row = sheet.row_values(0)
         rowNum  = sheet.nrows
         colNum = sheet.ncols 
@@ -55,5 +45,35 @@ class Xlrd:
         else:
              no = cell
         return no
+
+    #重置excl内容
+    def set_cell(self,sheet_name,curRowNo,curColNo,value):
+        newfile = copy(self.openfile)
+        newsheet = newfile.get_sheet(sheet_name)
+        newsheet.write(curRowNo,curColNo,value)
+        newfile.save(self.xlsPath)
+
+    # #写入excl内容
+    # def save(self):
+    #     self.newfile.save(self.xlsPath)
+    #     # self.newfile.close()
+
+    #获取sheet列名
+    def get_sheet_colname(self,sheet_name):
+        sheet = self.openfile.sheet_by_name(sheet_name)
+        row = sheet.row_values(0)
+        colNum = sheet.ncols 
+
+        cls = {}
+        for i in range(colNum):
+            cls[sheet.row_values(0)[i]]=i
+        return cls
+
+    #获取sheet值
+    def get_sheet_colnum(self,sheet_name,col_name):
+        coldic = self.get_sheet_colname(sheet_name)
+        colnum = coldic[col_name]
+        return colnum
+
             
         

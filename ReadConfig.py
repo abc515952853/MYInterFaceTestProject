@@ -46,8 +46,9 @@ class ReadConfig:
         self.cf.set("MEMBER",name,value)
 
     #写入ini文件
-    def write(self):
-        self.cf.write(open(configPath, "w"))     
+    def save(self):
+        self.cf.write(open(configPath, "w"))
+           
 
 # if __name__ == "__main__":
 #     a = ReadConfig()

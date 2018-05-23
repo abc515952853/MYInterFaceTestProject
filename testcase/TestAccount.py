@@ -20,5 +20,5 @@ class TestAccount(unittest.TestCase):
         r = requests.get(url='http://api.hhx.qianjifang.com.cn/api/Account')
         if r.status_code == 200:
             readconfig.set_member('mrename',r.json())
-            readconfig.write()
+            readconfig.save()
         self.assertEqual(200,r.status_code)
