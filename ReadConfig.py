@@ -22,21 +22,30 @@ class ReadConfig:
         self.cf = configparser.ConfigParser()
         self.cf.read(configPath)
 
+    #获取URL信息
     def get_url(self, name):
         value = self.cf.get("URL", name)
         return value
 
+    #获取TESTCASE信息
     def get_xls(self,name):
         value = self.cf.get("TESTCASE",name)
         return value
 
+    #重设TESTCASE信息    
+    def set_xls(self,name,value):
+        self.cf.set("MEMTESTCASEBER",name,value)
+    
+    #获取MEMBER信息
     def get_member(self,name):
         value = self.cf.get("MEMBER",name)
         return value
-        
+    
+    #重设MEMBER信息
     def set_member(self,name,value):
-        self.cf.set("TESTCASE",name,value)
+        self.cf.set("MEMBER",name,value)
 
+    #写入ini文件
     def write(self):
         self.cf.write(open(configPath, "w"))     
 
