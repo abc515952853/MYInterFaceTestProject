@@ -22,15 +22,13 @@ class TestSendCode(unittest.TestCase):
 
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_Sencode(self, data):
+        excel = ReadExcl.Xlrd()
         payload = {"phone":str(data["phone"]),"type":int(data["type"])}
         headers = {"Content-Type":"application/json"}
         r = requests.post(url='http://api.hhx.qianjifang.com.cn/api/Account/SendCode',data = json.dumps(payload),headers = headers)
-        excel.set_cell(sheet_name,int(data["case_id"]),9,r.text)
-        excel.set_cell(sheet_name,int(data["case_id"]),9,r.status_code)
-        print(r.status_code,int(data["case_id"]))
-        # excel.save()
+        excel.set_cell(sheet_name,int(data["case_id"]),excel.get_sheet_colname(sheet_name)["result_code"],excel.get_sheet_colname(sheet_name)["result_msg"],r.status_code,r.text)
+        excel.save()
         if r.status_code==204:
             readconfig.set_member('phone',str(data['phone']))
             readconfig.save()
-            # print(excel.get_sheet_colname(sheet_name)['result_msg'])
         self.assertEqual(data['code'],r.status_code)

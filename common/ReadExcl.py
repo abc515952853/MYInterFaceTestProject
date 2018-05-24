@@ -46,17 +46,17 @@ class Xlrd:
              no = cell
         return no
 
-    #重置excl内容
-    def set_cell(self,sheet_name,curRowNo,curColNo,value):
-        newfile = copy(self.openfile)
-        newsheet = newfile.get_sheet(sheet_name)
-        newsheet.write(curRowNo,curColNo,value)
-        newfile.save(self.xlsPath)
+    #重置result_msg、result_code内容
+    def set_cell(self,sheet_name,curRowNo,curColNo_code,curColNo_msg,result_code,result_text):
+        self.newfile = copy(self.openfile)
+        newsheet = self.newfile.get_sheet(sheet_name)
+        newsheet.write(curRowNo,curColNo_code,result_code)
+        newsheet.write(curRowNo,curColNo_msg,result_text)
 
-    # #写入excl内容
-    # def save(self):
-    #     self.newfile.save(self.xlsPath)
-    #     # self.newfile.close()
+    #写入excl内容
+    def save(self):
+        self.newfile.save(self.xlsPath)
+
 
     #获取sheet列名
     def get_sheet_colname(self,sheet_name):
