@@ -8,7 +8,6 @@ import  json
 sheet_name = "SendCode"
 
 excel = ReadExcl.Xlrd()
-readconfig=ReadConfig.ReadConfig()
 
 @ddt.ddt
 class TestSendCode(unittest.TestCase):
@@ -23,6 +22,7 @@ class TestSendCode(unittest.TestCase):
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_Sencode(self, data):
         excel = ReadExcl.Xlrd()
+        readconfig=ReadConfig.ReadConfig()
         payload = {"phone":str(data["phone"]),"type":int(data["type"])}
         headers = {"Content-Type":"application/json"}
         r = requests.post(url='http://api.hhx.qianjifang.com.cn/api/Account/SendCode',data = json.dumps(payload),headers = headers)

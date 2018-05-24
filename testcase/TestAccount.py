@@ -5,8 +5,6 @@ import ReadConfig
 import requests
 import  json 
 
-readconfig=ReadConfig.ReadConfig()
-
 class TestAccount(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -17,6 +15,7 @@ class TestAccount(unittest.TestCase):
         print("TestAccoun Stop")
 
     def test_Account(self):
+        readconfig=ReadConfig.ReadConfig()
         r = requests.get(url='http://api.hhx.qianjifang.com.cn/api/Account')
         if r.status_code == 200:
             readconfig.set_member('mrename',r.json())
