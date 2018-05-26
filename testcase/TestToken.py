@@ -5,30 +5,37 @@ import ReadConfig
 import requests
 import  json 
 
-sheet_name = "SendCode"
+sheet_name = "Token"
 
 excel = ReadExcl.Xlrd()
 
 @ddt.ddt
-class TestSendCode(unittest.TestCase):
+class TestToken(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        print ("TestSendCode start")
+        print ("TestToken start")
 
     @classmethod
     def tearDownClass(cls):
-        print("TestSendCode stop")
+        print("TestToken stop")
 
     @ddt.data(*excel.get_xls_next(sheet_name))
-    def test_Sencode(self, data):
+    def test_Token(self, data):
         excel = ReadExcl.Xlrd()
         readconfig=ReadConfig.ReadConfig()
-        payload = {"phone":str(data["phone"]),"type":int(data["type"])}
-        headers = {"Content-Type":"application/json"}
-        r = requests.post(url='http://api.hhx.qianjifang.com.cn/api/Account/SendCode',data = json.dumps(payload),headers = headers)
+
+        payload = {"grant_type":'code', "username": data['username'],"password":data['password']}
+        r = requests.post(url='http://api.hhx.qianjifang.com.cn/api/Token', data = payload)
         excel.set_cell(sheet_name,int(data["case_id"]),excel.get_sheet_colname(sheet_name)["result_code"],excel.get_sheet_colname(sheet_name)["result_msg"],r.status_code,r.text)
         excel.save()
-        # if r.status_code==204:
-        #     readconfig.set_member('phone',str(data['phone']))
-        #     readconfig.save()
+        if r.status_code==200:
+            session = r.json()["token_type"]+" "+r.json()["access_token"]
+            readconfig.set_member('session',session)
         self.assertEqual(data['expected_code'],r.status_code)
+    
+    
+    
+    
+    
+    
+    

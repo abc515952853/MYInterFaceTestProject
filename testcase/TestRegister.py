@@ -13,11 +13,11 @@ excel = ReadExcl.Xlrd()
 class TestRegister(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        print ("TestSendCode start")
+        print ("TestRegister start")
 
     @classmethod
     def tearDownClass(cls):
-        print("TestSendCode stop")
+        print("TestRegister stop")
 
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_Register(self, data):
