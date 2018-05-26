@@ -44,6 +44,7 @@ class ReadConfig:
     #重设MEMBER信息
     def set_member(self,name,value):
         self.cf.set("MEMBER",name,value)
+        self.save()
 
     #写入ini文件
     def save(self):
