@@ -18,5 +18,4 @@ class TestHome(unittest.TestCase):
         readconfig=ReadConfig.ReadConfig()
         headers = {"Content-Type":"application/json","Authorization":readconfig.get_member("session")} 
         r = requests.get(url='http://api.hhx.qianjifang.com.cn/api/Home',headers = headers)
-        print(r.status_code,r.json())
         self.assertEqual(200,r.status_code)
