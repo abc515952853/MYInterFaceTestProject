@@ -6,13 +6,15 @@ import requests
 import  json 
 
 class TestAccount(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        print ("TestAccount Start")
-    
-    @classmethod
-    def tearDownClass(cls):
-        print("TestAccoun Stop")
+    def setUp(self):
+        """
+        :return:
+        """
+
+    def tearDown(self):
+        """
+        :return:s
+        """
 
     def test_Account(self):
         readconfig=ReadConfig.ReadConfig()

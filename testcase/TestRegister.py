@@ -11,13 +11,15 @@ excel = ReadExcl.Xlrd()
 
 @ddt.ddt
 class TestRegister(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        print ("TestRegister start")
+    def setUp(self):
+        """
+        :return:
+        """
 
-    @classmethod
-    def tearDownClass(cls):
-        print("TestRegister stop")
+    def tearDown(self):
+        """
+        :return:s
+        """
 
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_Register(self, data):

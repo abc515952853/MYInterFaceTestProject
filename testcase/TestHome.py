@@ -5,14 +5,17 @@ import ReadConfig
 import requests
 import  json 
 
-class TestHome(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        print ("TestHome Start")
+class TestHome(unittest.TestCase):    
+    def setUp(self):
+        """
+        :return:
+        """
     
-    @classmethod
-    def tearDownClass(cls):
-        print("TestHome Stop")
+    def tearDown(self):
+        """
+        :return:
+        """
+        print('11111111111111111111111')
 
     def test_Account(self):
         readconfig=ReadConfig.ReadConfig()

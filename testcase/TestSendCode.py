@@ -10,14 +10,16 @@ sheet_name = "SendCode"
 excel = ReadExcl.Xlrd()
 
 @ddt.ddt
-class TestSendCode(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        print ("TestSendCode start")
+class TestSendCode(unittest.TestCase): 
+    def setUp(self):
+        """
+        :return:
+        """
 
-    @classmethod
-    def tearDownClass(cls):
-        print("TestSendCode stop")
+    def tearDown(self):
+        """
+        :return:s
+        """
 
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_Sencode(self, data):

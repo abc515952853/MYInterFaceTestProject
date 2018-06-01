@@ -11,13 +11,15 @@ excel = ReadExcl.Xlrd()
 
 @ddt.ddt
 class TestToken(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        print ("TestToken start")
+    def setUp(self):
+        """
+        :return:
+        """
 
-    @classmethod
-    def tearDownClass(cls):
-        print("TestToken stop")
+    def tearDown(self):
+        """
+        :return:s
+        """
 
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_Token(self, data):
